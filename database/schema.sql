@@ -1,0 +1,6 @@
+DROP TABLE if EXISTS todos;
+CREATE TABLE IF NOT EXISTS todos(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(24),
+  description TEXT
+);

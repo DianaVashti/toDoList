@@ -17,6 +17,8 @@ const INSERT_TODO = 'INSERT INTO todos(name, description) VALUES($1, $2) ON CONF
 
 const GET_ALL_TODOS = 'SELECT * FROM todos'
 
+const DELETE_TODO = 'DELETE FROM todos WHERE id = $1'
+
 const Todos = {
   addTodo: ( todo ) => {
     const {name, description} = todo
@@ -27,6 +29,9 @@ const Todos = {
       .then( result => {
         console.log( result )
       })
+  },
+  deleteTodo: ( todoID ) => {
+    return db.none( DELETE_TODO, [todoID] )
   },
   getAll: () => db.any( GET_ALL_TODOS, [] )
 }

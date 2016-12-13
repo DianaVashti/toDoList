@@ -1,8 +1,10 @@
-form
-  | Task:
-  br
-  input(type='text', name='task', maxlength='24')
-  br
-  | Description:
-  br
-  input(type='text', name='description')
+form(method='post', action=`/add`)
+    .form-group
+      label(for='name') Book Title
+      input#bookTitle.form-control(type='text',  placeholder='ToDo Name', name='name')
+    .form-group
+      label(for='description') Publish Date
+      input#bookPublishDate.form-control(type='text', placeholder='What do you need to do?', name='description')
+      small#fileHelp.form-text.text-muted
+              | Copy and pase the URL so we can judge the book by its cover
+      button.btn.btn-primary(type='submit') Save changes

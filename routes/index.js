@@ -2,11 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Todos = require('../database/db').Todos
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' })
-})
-
 router.post('/add', function(req, res, next) {
   const todoItem = req.body
   console.log("In routes", todoItem)
@@ -16,10 +11,19 @@ router.post('/add', function(req, res, next) {
     })
 })
 
-router.get('/list', function(req, res, next){
+router.get('/delete/:id', function(req, res, next) {
+  const todoId = req.params.id
+  console.log('ToDo id', todoId)
+  Todos.deleteTodo(todoId)
+    .then( () => {
+      res.redirect('/')
+    })
+})
+
+router.get('/', function(req, res, next){
   Todos.getAll()
     .then( results => {
-      console.log(results);
+      res.render('index', { allToDos:results })
     })
 })
 

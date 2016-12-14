@@ -34,6 +34,21 @@ router.post('/edit/name', function(req, res, next) {
     })
 })
 
+router.post('/edit/desc', function(req, res, next) {
+  var obj = {}
+  const desc = req.query.desc;
+  const todoID = parseInt(req.query.id);
+  // res.send(req.body)
+  console.log(typeof(desc));
+  console.log(obj);
+  Todos.updateDesc(desc, todoID)
+    .then( results => {
+      console.log(results);
+      res.json(results)
+    })
+})
+
+
 router.get('/', function(req, res, next){
   Todos.getAll()
     .then( results => {

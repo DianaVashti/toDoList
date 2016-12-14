@@ -6,8 +6,8 @@ block content
   table.table
     for todo in allToDos
       tr
-        td.name(id=`${todo.id}`) #{todo.name}
-        td#descID.description #{todo.description}
+        td.name(id=`name${todo.id}`) #{todo.name}
+        td.description(id=`desc${todo.id}`) #{todo.description}
         td.deletebutton
           a(href=`/delete/${todo.id}`) delete
     a(href='#', type=button, data-toggle='modal', data-target='#newItem') modalAppear

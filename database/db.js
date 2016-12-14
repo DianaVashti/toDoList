@@ -19,7 +19,10 @@ const GET_ALL_TODOS = 'SELECT * FROM todos ORDER BY id DESC'
 
 const DELETE_TODO = 'DELETE FROM todos WHERE id = $1'
 
-const UPDATE_NAME = 'UPDATE todos SET name = $1 WHERE id=$2 RETURNING *'
+const UPDATE_NAME = 'UPDATE todos SET name = $1 WHERE id=$2'
+
+const UPDATE_DESC = 'UPDATE todos SET description = $1 WHERE id=$2'
+
 
 const Todos = {
   addTodo: ( todo ) => {
@@ -36,8 +39,12 @@ const Todos = {
     return db.none( DELETE_TODO, [todoID] )
   },
   updateName: ( name, id ) => {
-    console.log('IN UPDATE!', name, id);
+    console.log('Update NAME!', name, id);
     return db.none( UPDATE_NAME, [name, id])
+  },
+  updateDesc: ( desc, id ) => {
+    console.log('Update DESC', desc, id);
+    return db.none( UPDATE_DESC, [desc, id])
   },
   getAll: () => db.any( GET_ALL_TODOS, [] )
 }

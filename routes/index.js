@@ -20,10 +20,24 @@ router.get('/delete/:id', function(req, res, next) {
     })
 })
 
+router.post('/edit/name', function(req, res, next) {
+  var obj = {}
+  const name = req.query.name;
+  const todoID = parseInt(req.query.id);
+  // res.send(req.body)
+  console.log(typeof(name));
+  console.log(obj);
+  Todos.updateName(name, todoID)
+    .then( results => {
+      console.log(results);
+      res.json(results)
+    })
+})
+
 router.get('/', function(req, res, next){
   Todos.getAll()
     .then( results => {
-      res.render('index', { allToDos:results })
+      res.render('index', { allToDos:results, isEdit: false })
     })
 })
 

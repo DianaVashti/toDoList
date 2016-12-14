@@ -3,13 +3,11 @@ extends layout
 block content
   include ./form.pug
   h1 ToDO
-
   table.table
     for todo in allToDos
-
       tr
-        td.name #{todo.name}
-        td.description #{todo.description}
+        td.name(id=`${todo.id}`) #{todo.name}
+        td#descID.description #{todo.description}
         td.deletebutton
           a(href=`/delete/${todo.id}`) delete
-    a(href='#', type=button, data-toggle='modal', data-target='.modal') modalAppear
+    a(href='#', type=button, data-toggle='modal', data-target='#newItem') modalAppear

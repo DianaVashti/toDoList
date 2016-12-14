@@ -15,9 +15,11 @@ const db = pgp( connectionString )
 // - - - QUERIES - - -
 const INSERT_TODO = 'INSERT INTO todos(name, description) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING *'
 
-const GET_ALL_TODOS = 'SELECT * FROM todos'
+const GET_ALL_TODOS = 'SELECT * FROM todos ORDER BY id DESC'
 
 const DELETE_TODO = 'DELETE FROM todos WHERE id = $1'
+
+const UPDATE_NAME = 'UPDATE todos SET name = $1 WHERE id=$2 RETURNING *'
 
 const Todos = {
   addTodo: ( todo ) => {
@@ -32,6 +34,10 @@ const Todos = {
   },
   deleteTodo: ( todoID ) => {
     return db.none( DELETE_TODO, [todoID] )
+  },
+  updateName: ( name, id ) => {
+    console.log('IN UPDATE!', name, id);
+    return db.none( UPDATE_NAME, [name, id])
   },
   getAll: () => db.any( GET_ALL_TODOS, [] )
 }

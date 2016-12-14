@@ -1,14 +1,14 @@
-.modal.fade
+#newItem.modal.fade
   .modal-dialog(role='document')
     .modal-content
       .modal-header
           form(method='post', action=`/add`)
             .form-group
               label(for='name') ToDO Item
-              input#bookTitle.form-control(type='text',  placeholder='ToDo Name', name='name', maxlength='24')
+              input#todoName.form-control(type='text',  placeholder='ToDo Name', name='name', maxlength='24', value='')
             .form-group
               label(for='description') Description
-              input.form-control(type='text', placeholder='What do you need to do?', name='description')
-            .modal-footer    
+              input#todoDesc.form-control(type='text', placeholder='What do you need to do?', name='description', value='')
+            .modal-footer
               button.btn.btn-primary(type='submit') Save changes
       button.close(type='button', data-dismiss='modal', aria-label='Close') x

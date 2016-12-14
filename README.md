@@ -14,22 +14,23 @@ Goals
 #### User Stories:
 
 The App: As a user...
-- [ ] I can create to do list items.
-- [ ] I can delete unwanted to do list items.
+- [x] I can create to do list items.
+- [x] I can delete unwanted to do list items.
 - [ ] I can check items off as completed.
-- [ ] I can rearrange to do list items. 
+- [ ] I can rearrange to do list items.
 - [ ] I can edit the text on existing to do's.
 #### Additional Specs:
-- [ ] Create the back end using node and express.
-- [ ] Create a database of to do list items.
+- [x] Create the back end using node and express.
+- [x] Create a database of to do list items.
 - [ ] JS Lint finds no mistakes
 - [ ] Follow good Git team behaviors (do all your work on branches & submit pull requests for review before merging to master)
 - [ ] The artifact produced is properly licensed, preferably with the [MIT license](https://opensource.org/licenses/MIT).
 #### Stretch Goals/Nice to Have's:
 - [ ] I can create mulitple lists of to do's.
 - [ ] I can log into my account.
-- [ ] Write the app using ES6.
-- [ ] Deploy the app to heroku. 
+- [x] Write the app using ES6.
+- [ ] Deploy the app to heroku.
+- [ ] In-place editing for list items.
 ---
 ## License
 

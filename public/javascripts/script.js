@@ -20,8 +20,6 @@ $(document).ready( function() {
     var focusID = $(this).attr('id')
     var stringID = '#'+focusID
     var DB_ID = stringID.replace(/\D/g,'');
-    console.log('.focus '+stringID)
-    console.log(DB_ID);
     var name = $('#'+focusID).val();
     $.ajax({
       type:'post',
@@ -42,7 +40,7 @@ $(document).ready( function() {
         'class' : 'focusD',
         // 'name' : 'fdesc',
         'id' : 'input'+todoID,
-        'size' : '24',
+        'size' : '100',
         'value' : desc
       })
       .appendTo('#'+todoID);
@@ -53,8 +51,6 @@ $(document).ready( function() {
     var focusID = $(this).attr('id')
     var stringID = '#'+focusID
     var DB_ID = stringID.replace(/\D/g,'');
-    console.log('.focusD '+stringID)
-    console.log(DB_ID);
     var desc = $('#'+focusID).val();
     $.ajax({
       type:'post',
@@ -64,5 +60,4 @@ $(document).ready( function() {
       }
     });
   });
-
 });

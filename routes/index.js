@@ -48,6 +48,13 @@ router.post('/edit/desc', function(req, res, next) {
     })
 })
 
+router.post('/completed', function(req, res, next) {
+  Todos.setComplete(completed, todoID)
+    .then( results => {
+      res.redirect('/')
+    })
+})
+
 
 router.get('/', function(req, res, next){
   Todos.getAll()

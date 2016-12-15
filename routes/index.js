@@ -4,7 +4,6 @@ const Todos = require('../database/db').Todos
 
 router.post('/add', function(req, res, next) {
   const todoItem = req.body
-  console.log("In routes", todoItem)
   Todos.addTodo( todoItem )
     .then( result => {
       res.redirect('/')
@@ -13,7 +12,6 @@ router.post('/add', function(req, res, next) {
 
 router.get('/delete/:id', function(req, res, next) {
   const todoId = req.params.id
-  console.log('ToDo id', todoId)
   Todos.deleteTodo(todoId)
     .then( () => {
       res.redirect('/')
@@ -24,9 +22,6 @@ router.post('/edit/name', function(req, res, next) {
   var obj = {}
   const name = req.query.name;
   const todoID = parseInt(req.query.id);
-  // res.send(req.body)
-  console.log(typeof(name));
-  console.log(obj);
   Todos.updateName(name, todoID)
     .then( results => {
       console.log(results);
@@ -38,19 +33,17 @@ router.post('/edit/desc', function(req, res, next) {
   var obj = {}
   const desc = req.query.desc;
   const todoID = parseInt(req.query.id);
-  // res.send(req.body)
-  console.log(typeof(desc));
-  console.log(obj);
   Todos.updateDesc(desc, todoID)
     .then( results => {
-      console.log(results);
       res.json(results)
     })
 })
 
-router.post('/completed', function(req, res, next) {
-  Todos.setComplete(completed, todoID)
+router.get('/completed/:id', function(req, res, next) {
+  const todoID = parseInt(req.params.id);
+  Todos.setComplete(todoID)
     .then( results => {
+      console.log('IN ROUTE', results);
       res.redirect('/')
     })
 })
@@ -59,7 +52,7 @@ router.post('/completed', function(req, res, next) {
 router.get('/', function(req, res, next){
   Todos.getAll()
     .then( results => {
-      res.render('index', { allToDos:results, isEdit: false })
+      res.render('index', { uncompleted:results[0],completed:results[1]})
     })
 })
 

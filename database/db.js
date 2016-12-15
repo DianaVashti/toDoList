@@ -17,13 +17,17 @@ const INSERT_TODO = 'INSERT INTO todos(name, description) VALUES($1, $2) ON CONF
 
 const GET_ALL_TODOS = 'SELECT * FROM todos ORDER BY id DESC'
 
+const GET_ALL_COMP = 'SELECT * FROM completed ORDER BY id DESC'
+
 const DELETE_TODO = 'DELETE FROM todos WHERE id = $1'
 
 const UPDATE_NAME = 'UPDATE todos SET name = $1 WHERE id=$2'
 
 const UPDATE_DESC = 'UPDATE todos SET description = $1 WHERE id=$2'
 
-const UPDATE_COMP = 'UPDATE todos SET completed = TRUE WHERE id=$1'
+const ADD_COMPLETED = 'INSERT INTO completed(name, description) VALUES($1, $2)'
+
+const DELETE_RETURN = 'DELETE FROM todos WHERE id = $1 RETURNING *'
 
 const Todos = {
   addTodo: ( todo ) => {
@@ -48,9 +52,19 @@ const Todos = {
     return db.none( UPDATE_DESC, [desc, id])
   },
   setComplete: (todoID) => {
-    return db.none( UPDATE_COMP, [todoID])
+    return db.any( DELETE_RETURN, [todoID])
+      .then(result => {
+        console.log('SET COMPLETED',result);
+        const name = result[0].name;
+
+        const desc = result[0].description
+        db.one(ADD_COMPLETED, [name, desc])
+      })
   },
-  getAll: () => db.any( GET_ALL_TODOS, [] )
+  getAll: () =>{
+        return Promise.all([db.any(GET_ALL_TODOS),db.any(GET_ALL_COMP)])
+  },
+
 }
 
 module.exports = {Todos};

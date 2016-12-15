@@ -4,16 +4,18 @@ block content
   include ./form.pug
   h1 ToDO
   table.table
-    for todo in allToDos
+    for todo in uncompleted
       tr
+        td.done.name
+          a(href=`/completed/${todo.id}`) complete
         td.name(id=`name${todo.id}`) #{todo.name}
         td.description(id=`desc${todo.id}`) #{todo.description}
         td.deletebutton
           a(href=`/delete/${todo.id}`) delete
     a(href='#', type=button, data-toggle='modal', data-target='#newItem') modalAppear
-  //- h1 Completed
-  //- table.table
-  //-   for completed in allCompleted
-  //-     tr
-  //-       td.name(id=`name${completed.id}`) #{completed.name}
-  //-       td.description(id=`desc${completed.id}`) #{completed.description}
+  h1 Completed
+  table.table
+    for todo in completed
+      tr
+        td.name #{todo.name}
+        td.description #{todo.description}

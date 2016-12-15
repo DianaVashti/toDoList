@@ -1,21 +1,27 @@
-DROP TABLE if EXISTS todos;
-CREATE TABLE IF NOT EXISTS todos(
+DROP TABLE if EXISTS person;
+CREATE TABLE IF NOT EXISTS person(
   id SERIAL PRIMARY KEY,
-  name VARCHAR(24) NOT NULL,
-  description TEXT NOT NULL UNIQUE,
-  completed BOOLEAN DEFAULT FALSE
+  email VARCHAR(50) NOT NULL,
+  password VARCHAR(16) NOT NULL
 );
 
-
-DROP TABLE if EXISTS completed;
-CREATE TABLE IF NOT EXISTS completed(
+DROP TABLE if EXISTS list;
+CREATE TABLE IF NOT EXISTS list(
   id SERIAL PRIMARY KEY,
-  name VARCHAR(24) NOT NULL,
-  description TEXT NOT NULL UNIQUE
+  user_id INTEGER REFERENCES person(id)
 );
 
-DROP TABLE if EXISTS todo_complete;
-CREATE TABLE IF NOT EXISTS todo_complete(
-  todo_id INTEGER REFERENCES todos(id),
-  completed_id INTEGER REFERENCES completed(id)
+DROP TABLE if EXISTS list_item;
+CREATE TABLE IF NOT EXISTS list_item(
+  id SERIAL PRIMARY KEY,
+  table_id INTEGER REFERENCES list(id),
+  item_title VARCHAR(24) NOT NULL,
+  item_description TEXT NOT NULL,
+  is_completed BOOLEAN DEFAULT FALSE
+);
+
+DROP TABLE if EXISTS table_name;
+CREATE TABLE IF NOT EXISTS table_name(
+  table_id INTEGER REFERENCES list(id),
+  table_name VARCHAR(24) NOT NULL
 );

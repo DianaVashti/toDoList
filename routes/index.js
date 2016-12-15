@@ -41,7 +41,8 @@ router.post('/edit/desc', function(req, res, next) {
 
 router.get('/completed/:id', function(req, res, next) {
   const todoID = parseInt(req.params.id);
-  Todos.setComplete(todoID)
+  Todos.markComplete(todoID)
+  // Todos.setComplete(todoID)
     .then( results => {
       console.log('IN ROUTE', results);
       res.redirect('/')
@@ -52,6 +53,8 @@ router.get('/completed/:id', function(req, res, next) {
 router.get('/', function(req, res, next){
   Todos.getAll()
     .then( results => {
+      console.log('UNCOMPLETED', results[0] );
+      console.log('COMPLETED', results[1] );
       res.render('index', { uncompleted:results[0],completed:results[1]})
     })
 })

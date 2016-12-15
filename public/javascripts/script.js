@@ -50,14 +50,15 @@ $(document).ready( function() {
   $(document).on('blur', '.focusD', function() {
     var focusID = $(this).attr('id')
     var stringID = '#'+focusID
-    var DB_ID = stringID.replace(/\D/g,'');
-    var desc = $('#'+focusID).val();
+    var DB_ID = stringID.replace(/\D/g,'')
+    var desc = $('#'+focusID).val()
     $.ajax({
       type:'post',
       url: 'edit/desc/?desc=' + desc +'&id=' + DB_ID,
       success: function(){
         $('.focusD '+stringID).text(desc);
       }
-    });
+    })
+
   });
 });

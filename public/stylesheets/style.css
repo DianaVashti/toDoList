@@ -22,3 +22,7 @@ modal {
 .deletebutton {
   text-align: right;
 }
+
+input {
+  border: none;
+}

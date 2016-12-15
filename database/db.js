@@ -23,6 +23,7 @@ const UPDATE_NAME = 'UPDATE todos SET name = $1 WHERE id=$2'
 
 const UPDATE_DESC = 'UPDATE todos SET description = $1 WHERE id=$2'
 
+const UPDATE_COMP = 'UPDATE todos SET completed = TRUE WHERE id=$1'
 
 const Todos = {
   addTodo: ( todo ) => {
@@ -45,6 +46,9 @@ const Todos = {
   updateDesc: ( desc, id ) => {
     console.log('Update DESC', desc, id);
     return db.none( UPDATE_DESC, [desc, id])
+  },
+  setComplete: (todoID) => {
+    return db.none( UPDATE_COMP, [todoID])
   },
   getAll: () => db.any( GET_ALL_TODOS, [] )
 }

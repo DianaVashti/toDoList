@@ -15,9 +15,9 @@ const db = pgp( connectionString )
 // - - - QUERIES - - -
 const INSERT_TODO = 'INSERT INTO todos(name, description) VALUES($1, $2) ON CONFLICT DO NOTHING RETURNING *'
 
-const GET_ALL_TODOS = 'SELECT * FROM todos ORDER BY id DESC'
+const GET_ALL_TODOS = 'SELECT * FROM todos WHERE completed = FALSE ORDER BY id DESC'
 
-const GET_ALL_COMP = 'SELECT * FROM completed ORDER BY id DESC'
+const GET_ALL_COMP = 'SELECT * FROM todos WHERE completed = TRUE ORDER BY id DESC'
 
 const DELETE_TODO = 'DELETE FROM todos WHERE id = $1'
 
@@ -25,9 +25,8 @@ const UPDATE_NAME = 'UPDATE todos SET name = $1 WHERE id=$2'
 
 const UPDATE_DESC = 'UPDATE todos SET description = $1 WHERE id=$2'
 
-const ADD_COMPLETED = 'INSERT INTO completed(name, description) VALUES($1, $2)'
+const MARK_COMPLETE = 'UPDATE todos SET completed = TRUE WHERE id = $1'
 
-const DELETE_RETURN = 'DELETE FROM todos WHERE id = $1 RETURNING *'
 
 const Todos = {
   addTodo: ( todo ) => {
@@ -51,18 +50,11 @@ const Todos = {
     console.log('Update DESC', desc, id);
     return db.none( UPDATE_DESC, [desc, id])
   },
-  setComplete: (todoID) => {
-    return db.any( DELETE_RETURN, [todoID])
-      .then(result => {
-        console.log('SET COMPLETED',result);
-        const name = result[0].name;
-
-        const desc = result[0].description
-        db.one(ADD_COMPLETED, [name, desc])
-      })
+  markComplete: ( todoID ) => {
+    return db.none( MARK_COMPLETE, [todoID])
   },
   getAll: () =>{
-        return Promise.all([db.any(GET_ALL_TODOS),db.any(GET_ALL_COMP)])
+        return Promise.all( [db.any(GET_ALL_TODOS),db.any(GET_ALL_COMP)]      )
   },
 
 }

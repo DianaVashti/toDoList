@@ -40,7 +40,7 @@ $(document).ready( function() {
         'class' : 'focusD',
         // 'name' : 'fdesc',
         'id' : 'input'+todoID,
-        'size' : '100',
+        'size' : '60',
         'value' : desc
       })
       .appendTo('#'+todoID);

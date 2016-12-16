@@ -1,0 +1,14 @@
+#newItem.modal.fade
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+          form(method='post', action=`/add/${table_id}`)
+            .form-group
+              label(for='item_title') ToDO Item
+              input#todoName.form-control(type='text',  placeholder='ToDo Name', name='item_title', maxlength='24', value='')
+            .form-group
+              label(for='item_description') Description
+              input#todoDesc.form-control(type='text', placeholder='What do you need to do?', name='item_description', value='')
+            .modal-footer
+              button.btn.btn-primary(type='submit') Save changes
+      button.close(type='button', data-dismiss='modal', aria-label='Close') x

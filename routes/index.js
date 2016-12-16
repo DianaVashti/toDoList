@@ -1,32 +1,40 @@
 const express = require('express')
 const router = express.Router()
-const passport = require('passport')
-const account = require('../database/account')
+// const passport = require('passport')
+// const account = require('../database/account')
 const Todos = require('../database/db').Todos
-const Users = require('../database/db').Users
+// const Users = require('../database/db').Users
 
-router.get('/account', function(req, res) {
-    res.render('register', { });
-});
+// router.get('/account', function(req, res) {
+//     res.render('register', { });
+// });
+//
+// router.post('/account', function(req, res) {
+//     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+//         if (err) {
+//             return res.render('account', { account : account });
+//         }
+//
+//         passport.authenticate('local')(req, res, function () {
+//             res.redirect('/');
+//         });
+//     });
+// });
 
-router.post('/account', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-        if (err) {
-            return res.render('account', { account : account });
-        }
-
-        passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
-        });
-    });
-});
+router.post('/newUser/', function(req, res, next) {
+    const newUserInput = req.body
+    console.log('------>', newUserInput);
+    Todos.addNewUser( newUserInput )
+    .then( result => {
+      res.redirect('/')
+    })
+})
 
 router.post('/add/:id', function(req, res, next) {
   const todoItem = req.body
   const table_id = parseInt(req.params.id)
-  console.log(todoItem);
   Todos.addTodo( todoItem, table_id )
-    .then( result => {
+    .then( results => {
       res.redirect('/table/' + table_id)
     })
 })
@@ -34,8 +42,8 @@ router.post('/add/:id', function(req, res, next) {
 router.get('/delete/:id', function(req, res, next) {
   const todoId = req.params.id
   Todos.deleteTodo(todoId)
-    .then( () => {
-      res.redirect('/')
+    .then( ( results ) => {
+      res.redirect('/table/' + results.table_id)
     })
 })
 
@@ -75,6 +83,11 @@ router.get('/completed/:id', function(req, res, next) {
 router.get('/', function(req, res, next){
   //havent done auth so redirect to thumbnail page
   res.render('login')
+})
+
+router.get('/signup/', function(req, res, next){
+  //havent done auth so redirect to thumbnail page
+  res.render('signup')
 })
 
 router.get('/home', function(req, res, next){

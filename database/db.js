@@ -72,7 +72,7 @@ const Todos = {
   },
   createNewList: ( user_id, table_name ) => {
     console.log(user_id, table_name);
-    return db.none( CREATE_NEW_LIST, [table_name] )
+    return db.any( CREATE_NEW_LIST, [user_id, table_name] )
   }
 
 }

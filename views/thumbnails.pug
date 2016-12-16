@@ -1,0 +1,6 @@
+extends layout
+
+block content
+  for table in tables
+    a(href=`/table/${table.table_id}`)
+      h1 #{table.table_name}

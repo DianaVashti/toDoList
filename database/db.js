@@ -35,8 +35,6 @@ const GET_ALL_TABLE_NAMES = 'SELECT table_name, id FROM list WHERE user_id=$1'
 const CREATE_NEW_LIST = 'INSERT INTO list(user_id, table_name) VALUES($1, $2) RETURNING *'
 
 
-
-
 const Todos = {
   addTodo: ( todo, table_id ) => {
     const {item_title, item_description} = todo

@@ -12,12 +12,15 @@ modal {
 }
 
 .name {
-  width: 100px;
+  width: 200px;
+}
 
+.button {
+  width: 100px;
 }
 
 .description {
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .deletebutton {

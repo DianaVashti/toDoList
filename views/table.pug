@@ -2,23 +2,30 @@ extends layout
 
 block content
   include ./add_form.pug
-  h1= name.table_name
+  h2= name.table_name
+  h3 ToDo:
 
-  a.btn.btn-primary(href='/home') Back to Lists
+  a.btn.btn-primary.button(href='#', type=button, data-toggle='modal', data-target='#newItem') New
 
   table.table
     for list_item in uncompleted
+
       tr
-        td.done.name
-          a(href=`/completed/${list_item.id}/?tableid=${name.table_id}`) complete
-        td.name(id=`name${list_item.id}`) #{list_item.item_title}
+        td.done.button
+          a.btn.btn-warning.button(href=`/completed/${list_item.id}/?tableid=${name.table_id}`) Complete
+        td.h5.name(id=`name${list_item.id}`) #{list_item.item_title}
         td.description(id=`desc${list_item.id}`) #{list_item.item_description}
         td.deletebutton
-          a(href=`/delete/${list_item.id}`) delete
-    a(href='#', type=button, data-toggle='modal', data-target='#newItem') modalAppear
-  h1 Completed
+          a.btn.btn-danger.button(href=`/delete/${list_item.id}`) delete
+
+  h3 Completed
   table.table
     for list_item in completed
       tr
-        td.name #{list_item.item_title}
+        td.button
+        td.h5.name #{list_item.item_title}
         td.description #{list_item.item_description}
+        td.deletebutton
+          a.btn.btn-danger.button(href=`/delete/${list_item.id}`) delete
+
+  a.btn.btn-primary.button(href='/home') Lists

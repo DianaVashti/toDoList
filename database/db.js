@@ -27,9 +27,12 @@ const UPDATE_DESC = 'UPDATE list_item SET item_description = $1 WHERE id=$2'
 
 const MARK_COMPLETE = 'UPDATE list_item SET is_completed = TRUE WHERE id = $1 RETURNING table_id'
 
-const GET_TABLE_NAME = 'SELECT table_name FROM table_name WHERE table_id=$1'
+const GET_TABLE_NAME = 'SELECT table_name FROM list WHERE id=$1'
 
-const GET_ALL_TABLE_NAMES = 'SELECT table_name, table_id FROM table_name JOIN list ON list.id=table_name.table_id WHERE user_id=$1'
+const GET_ALL_TABLE_NAMES = 'SELECT table_name, id FROM list WHERE user_id=$1'
+
+const CREATE_NEW_LIST = 'INSERT INTO list(user_id, table_name) VALUES($1, $2)'
+
 
 
 const Todos = {

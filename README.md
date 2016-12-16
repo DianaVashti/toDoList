@@ -21,11 +21,11 @@ The App: As a user...
 #### Additional Specs:
 - [x] Create the back end using node and express.
 - [x] Create a database of to do list items.
-- [ ] Code refactored to be clean and readable
+- [x] Code refactored to be clean and readable
 - [x] Follow good Git team behaviors (do all your work on branches & submit pull requests for review before merging to master)
 - [x] The artifact produced is properly licensed, preferably with the [MIT license](https://opensource.org/licenses/MIT).
 #### Stretch Goals/Nice to Have's:
-- [ ] I can create mulitple lists of to do's.
+- [x] I can create mulitple lists of to do's.
 - [ ] I can log into my account.
 - [x] Write the app using ES6.
 - [ ] Deploy the app to heroku.

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  form(action=`/newUser`, method="POST")
+    .form-group
+      label(for='email') Email address
+      input#inputEmail.form-control(type='email', aria-describedby='emailHelp', placeholder='person@me.com', name='email')
+      small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+    .form-group
+      label(for='password') Password
+      input#inputPassword.form-control(type='password', placeholder='poop', name='password' )
+    button.btn.btn-primary(type='submit') Submit

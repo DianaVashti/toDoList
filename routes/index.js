@@ -49,7 +49,6 @@ router.get('/completed/:id', function(req, res, next) {
   const todoID = parseInt(req.params.id);
   Todos.markComplete(todoID)
     .then( results => {
-      console.log(results);
       res.redirect('/table/' + results.table_id)
     })
 })
@@ -69,11 +68,16 @@ router.get('/home', function(req, res, next){
     })
 })
 
-
+router.post('/home/add_table', function(req, res, next){
+  const {table_name} = req.body
+  const user_id = parseInt(req.body.user_id)
+  return Todos.createNewList(user_id, table_name)
+})
 
 router.get('/table/:id', function(req, res, next){
   // temp until auth is done
   const table_id = parseInt(req.params.id);
+  console.log(table_id);
   Todos.getAll(table_id)
     .then( results => {
       res.render('table', { uncompleted:results[0], completed:results[1], name:results[2], table_id})

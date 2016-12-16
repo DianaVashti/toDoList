@@ -31,7 +31,9 @@ const GET_TABLE_NAME = 'SELECT table_name FROM list WHERE id=$1'
 
 const GET_ALL_TABLE_NAMES = 'SELECT table_name, id FROM list WHERE user_id=$1'
 
-const CREATE_NEW_LIST = 'INSERT INTO list(user_id, table_name) VALUES($1, $2)'
+// TODO: fix foreign key error tomorrow!
+const CREATE_NEW_LIST = 'INSERT INTO list(user_id, table_name) VALUES($1, $2) RETURNING *'
+
 
 
 
@@ -67,6 +69,10 @@ const Todos = {
   getUsersTables: ( user_id ) => {
     console.log('USER TABLE #: ', user_id);
     return db.any( GET_ALL_TABLE_NAMES, [user_id] )
+  },
+  createNewList: ( user_id, table_name ) => {
+    console.log(user_id, table_name);
+    return db.none( CREATE_NEW_LIST, [table_name] )
   }
 
 }

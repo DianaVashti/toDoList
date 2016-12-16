@@ -3,6 +3,9 @@ extends layout
 block content
   include ./add_form.pug
   h1= name.table_name
+
+  a.btn.btn-primary(href='/home') Back to Lists
+
   table.table
     for list_item in uncompleted
       tr

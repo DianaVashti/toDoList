@@ -19,6 +19,11 @@ modal {
 .description {
   max-width: 400px;
 }
+
 .deletebutton {
   text-align: right;
+}
+
+#userId {
+  display: none;
 }

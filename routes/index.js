@@ -72,6 +72,9 @@ router.post('/home/add_table', function(req, res, next){
   const {table_name} = req.body
   const user_id = parseInt(req.body.user_id)
   return Todos.createNewList(user_id, table_name)
+    .then( results => {
+      res.redirect('/home/')
+    })
 })
 
 router.get('/table/:id', function(req, res, next){

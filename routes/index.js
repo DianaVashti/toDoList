@@ -1,6 +1,25 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
+const account = require('../database/account')
 const Todos = require('../database/db').Todos
+const Users = require('../database/db').Users
+
+router.get('/account', function(req, res) {
+    res.render('register', { });
+});
+
+router.post('/account', function(req, res) {
+    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+        if (err) {
+            return res.render('account', { account : account });
+        }
+
+        passport.authenticate('local')(req, res, function () {
+            res.redirect('/');
+        });
+    });
+});
 
 router.post('/add/:id', function(req, res, next) {
   const todoItem = req.body
@@ -55,8 +74,7 @@ router.get('/completed/:id', function(req, res, next) {
 
 router.get('/', function(req, res, next){
   //havent done auth so redirect to thumbnail page
-  res.render('index')
-  // res.redirect('/home')
+  res.render('login')
 })
 
 router.get('/home', function(req, res, next){

@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS person(
 DROP TABLE if EXISTS list;
 CREATE TABLE IF NOT EXISTS list(
   id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES person(id)
+  user_id INTEGER REFERENCES person(id),
+  table_name VARCHAR(24) NOT NULL
 );
 
 DROP TABLE if EXISTS list_item;
@@ -18,10 +19,4 @@ CREATE TABLE IF NOT EXISTS list_item(
   item_title VARCHAR(24) NOT NULL,
   item_description TEXT NOT NULL,
   is_completed BOOLEAN DEFAULT FALSE
-);
-
-DROP TABLE if EXISTS table_name;
-CREATE TABLE IF NOT EXISTS table_name(
-  table_id INTEGER REFERENCES list(id),
-  table_name VARCHAR(24) NOT NULL
 );

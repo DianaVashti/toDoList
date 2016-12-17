@@ -35,6 +35,8 @@ const CREATE_NEW_LIST = 'INSERT INTO list(user_id, table_name) VALUES($1, $2) RE
 
 const ADD_NEW_USER = 'INSERT INTO person(email, password) VALUES($1, $2) RETURNING *'
 
+const GET_PW = 'SELECT * FROM person WHERE email=$1'
+
 const Todos = {
   addTodo: ( todo, table_id ) => {
     const {item_title, item_description} = todo
@@ -72,8 +74,10 @@ const Todos = {
   createNewList: ( user_id, table_name ) => {
     console.log(user_id, table_name);
     return db.any( CREATE_NEW_LIST, [user_id, table_name] )
+  },
+  getPassword: ( email ) => {
+    return db.one( GET_PW, [email])
   }
-
 }
 
 module.exports = {Todos};

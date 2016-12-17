@@ -2,7 +2,7 @@
   .modal-dialog(role='document')
     .modal-content
       .modal-header
-          form(method='post', action=`/add/${table_id}`)
+          form(method='post', action=`/add/${table_id}?user=${user_id}`)
             .form-group
               label(for='item_title') ToDO Item
               input#todoName.form-control(type='text',  placeholder='ToDo Name', name='item_title', maxlength='24', value='')

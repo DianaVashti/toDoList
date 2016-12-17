@@ -12,11 +12,11 @@ block content
 
       tr
         td.done.button
-          a.btn.btn-warning.button(href=`/completed/${list_item.id}/?tableid=${name.table_id}`) Complete
+          a.btn.btn-warning.button(href=`/completed/${list_item.id}?tableid=${name.table_id}&user=${user_id}`) Complete
         td.h5.name(id=`name${list_item.id}`) #{list_item.item_title}
         td.description(id=`desc${list_item.id}`) #{list_item.item_description}
         td.deletebutton
-          a.btn.btn-danger.button(href=`/delete/${list_item.id}`) delete
+          a.btn.btn-danger.button(href=`/delete/${list_item.id}?tableid=${name.table_id}&user=${user_id}`) delete
 
   h3 Completed
   table.table
@@ -26,6 +26,6 @@ block content
         td.h5.name #{list_item.item_title}
         td.description #{list_item.item_description}
         td.deletebutton
-          a.btn.btn-danger.button(href=`/delete/${list_item.id}`) delete
+          a.btn.btn-danger.button(href=`/delete/${list_item.id}?tableid=${name.table_id}&user=${user_id}`) delete
 
-  a.btn.btn-primary.button(href='/home') Lists
+  a.btn.btn-primary.button(href=`/home/?user=${user_id}`) Lists

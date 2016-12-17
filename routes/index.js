@@ -1,26 +1,6 @@
 const express = require('express')
 const router = express.Router()
-// const passport = require('passport')
-// const account = require('../database/account')
 const Todos = require('../database/db').Todos
-// const Users = require('../database/db').Users
-
-// router.get('/account', function(req, res) {
-//     res.render('register', { });
-// });
-//
-// router.post('/account', function(req, res) {
-//     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-//         if (err) {
-//             return res.render('account', { account : account });
-//         }
-//
-//         passport.authenticate('local')(req, res, function () {
-//             res.redirect('/');
-//         });
-//     });
-// });
-
 router.post('/newUser/', function(req, res, next) {
     const newUserInput = req.body
     Todos.addNewUser( newUserInput )
@@ -31,18 +11,20 @@ router.post('/newUser/', function(req, res, next) {
 
 router.post('/add/:id', function(req, res, next) {
   const todoItem = req.body
+  const user_id = req.query.user
   const table_id = parseInt(req.params.id)
   Todos.addTodo( todoItem, table_id )
     .then( results => {
-      res.redirect('/table/' + table_id)
+      res.redirect('/table/' + table_id + '/?user=' + user_id)
     })
 })
 
 router.get('/delete/:id', function(req, res, next) {
   const todoId = req.params.id
+  const user_id = req.query.user
   Todos.deleteTodo(todoId)
     .then( ( results ) => {
-      res.redirect('/table/' + results.table_id)
+      res.redirect('/table/' + results.table_id + '/?user=' + user_id)
     })
 })
 
@@ -50,11 +32,8 @@ router.post('/table/edit/name', function(req, res, next) {
   var obj = {}
   const name = req.query.name;
   const todoID = parseInt(req.query.id);
-  console.log('ID', todoID);
-  console.log('NAME', name);
   Todos.updateName(name, todoID)
     .then( results => {
-      console.log(results);
       res.json(results)
     })
 })
@@ -63,8 +42,6 @@ router.post('/table/edit/desc', function(req, res, next) {
   var obj = {}
   const desc = req.query.desc;
   const todoID = parseInt(req.query.id);
-  console.log('ID',todoID);
-  console.log('DESC',desc);
   Todos.updateDesc(desc, todoID)
     .then( results => {
       res.json(results)
@@ -73,39 +50,39 @@ router.post('/table/edit/desc', function(req, res, next) {
 
 router.get('/completed/:id', function(req, res, next) {
   const todoID = parseInt(req.params.id);
+  const user_id = req.query.user
   Todos.markComplete(todoID)
     .then( results => {
-      res.redirect('/table/' + results.table_id)
+      res.redirect('/table/' + results.table_id + '/?user=' + user_id)
     })
 })
 
 router.get('/', function(req, res, next){
-  //havent done auth so redirect to thumbnail page
   res.render('login')
 })
 
 router.get('/signup/', function(req, res, next){
-  //havent done auth so redirect to thumbnail page
   res.render('signup')
 })
 
-router.post('/home', function(req, res, next){
-  //havent done auth so redirect to thumbnail page
+router.post('/auth', function(req, res, next){
   const {email, password} = req.body
-  console.log('------->', req.body);
   Todos.getPassword( email )
     .then( results => {
-      console.log(results);
       if (results.password === password){
         const user_id = results.id
-        console.log('--------------->>',user_id);
-        Todos.getUsersTables(user_id)
-        .then( results => {
-          res.render('thumbnails', {tables:results, user_id} )
-        })
+        res.redirect('/home/?user='+user_id)
       } else {
-        res.redirect('/home')
+        res.redirect('/')
       }
+    })
+})
+
+router.get('/home', function(req, res, next){
+  const user_id = req.query.user
+  Todos.getUsersTables(user_id)
+    .then( results => {
+      res.render('thumbnails', {tables:results, user_id} )
     })
 })
 
@@ -122,12 +99,11 @@ router.post('/home/add_table', function(req, res, next){
 })
 
 router.get('/table/:id', function(req, res, next){
-  // temp until auth is done
   const table_id = parseInt(req.params.id);
-  console.log(table_id);
+  const user_id = req.query.user
   Todos.getAll(table_id)
     .then( results => {
-      res.render('table', { uncompleted:results[0], completed:results[1], name:results[2], table_id})
+      res.render('table', { uncompleted:results[0], completed:results[1], name:results[2], table_id, user_id})
     })
 })
 

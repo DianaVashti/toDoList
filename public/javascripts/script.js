@@ -10,6 +10,7 @@ $(document).ready( function() {
         // 'name' : 'fname',
         'id' : 'input'+todoID,
         'size' : '24',
+        'maxlength' : '24',
         'value' : name
       })
       .appendTo('#'+todoID);

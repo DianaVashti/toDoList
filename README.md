@@ -26,7 +26,7 @@ The App: As a user...
 - [x] The artifact produced is properly licensed, preferably with the [MIT license](https://opensource.org/licenses/MIT).
 #### Stretch Goals/Nice to Have's:
 - [x] I can create mulitple lists of to do's.
-- [ ] I can log into my account.
+- [x] I can log into my account.
 - [x] Write the app using ES6.
 - [ ] Deploy the app to heroku.
 - [x] In-place editing for list items.

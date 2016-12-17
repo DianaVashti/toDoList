@@ -2,7 +2,7 @@ extends layout
 
 block content
   a(href=`/signup/`) Sign Up!
-  form(action=`/home`, method='POST')
+  form(action=`/auth`, method='POST')
     .form-group
       label(for='email') Email address
       input#inputEmail.form-control(type='email', aria-describedby='emailHelp', placeholder='person@me.com', name='email')

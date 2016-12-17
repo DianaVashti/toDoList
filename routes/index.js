@@ -23,7 +23,6 @@ const Todos = require('../database/db').Todos
 
 router.post('/newUser/', function(req, res, next) {
     const newUserInput = req.body
-    console.log('------>', newUserInput);
     Todos.addNewUser( newUserInput )
     .then( result => {
       res.redirect('/')
@@ -90,12 +89,23 @@ router.get('/signup/', function(req, res, next){
   res.render('signup')
 })
 
-router.get('/home', function(req, res, next){
+router.post('/home', function(req, res, next){
   //havent done auth so redirect to thumbnail page
-  const user_id = 1
-  Todos.getUsersTables(user_id)
+  const {email, password} = req.body
+  console.log('------->', req.body);
+  Todos.getPassword( email )
     .then( results => {
-      res.render('thumbnails', {tables:results} )
+      console.log(results);
+      if (results.password === password){
+        const user_id = results.id
+        console.log('--------------->>',user_id);
+        Todos.getUsersTables(user_id)
+        .then( results => {
+          res.render('thumbnails', {tables:results, user_id} )
+        })
+      } else {
+        res.redirect('/home')
+      }
     })
 })
 
@@ -104,7 +114,10 @@ router.post('/home/add_table', function(req, res, next){
   const user_id = parseInt(req.body.user_id)
   return Todos.createNewList(user_id, table_name)
     .then( results => {
-      res.redirect('/home/')
+      Todos.getUsersTables(user_id)
+      .then( results => {
+        res.render('thumbnails', {tables:results, user_id} )
+      })
     })
 })
 

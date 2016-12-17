@@ -3,7 +3,8 @@ extends layout
 
 block content
   a.btn.btn-primary(href='#', type=button, data-toggle='modal', data-target='#newList') modalAppear
-  for table in tables
-    a(href=`/table/${table.id}`)
-      h1 #{table.table_name}
+  if tables.length > 0
+    for table in tables
+      a(href=`/table/${table.id}`)
+        h1 #{table.table_name}
   include ./add_new_table.pug

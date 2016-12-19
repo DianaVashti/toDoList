@@ -42,7 +42,6 @@ const Todos = {
     const {item_title, item_description} = todo
     return db.one( INSERT_TODO, [table_id, item_title, item_description])
       .then( result => {
-        console.log( result )
       })
   },
   addNewUser: ( newUserInput ) => {
@@ -53,26 +52,21 @@ const Todos = {
     return db.one( DELETE_TODO, [todoID] )
   },
   updateName: ( item_title, id ) => {
-    console.log('Update NAME!', item_title, id);
     return db.none( UPDATE_NAME, [item_title, id])
   },
   updateDesc: ( desc, id ) => {
-    console.log('Update DESC', desc, id);
     return db.none( UPDATE_DESC, [desc, id])
   },
   markComplete: ( todoID ) => {
     return db.one( MARK_COMPLETE, [todoID])
   },
   getAll: ( table_id ) => {
-    console.log('TABLE ID', table_id);
       return Promise.all( [db.any( GET_ALL_TODOS, [table_id] ), db.any( GET_ALL_COMP, [table_id]), db.one( GET_TABLE_NAME, [table_id]) ] )
   },
   getUsersTables: ( user_id ) => {
-    console.log('USER TABLE #: ', user_id);
     return db.any( GET_ALL_TABLE_NAMES, [user_id] )
   },
   createNewList: ( user_id, table_name ) => {
-    console.log(user_id, table_name);
     return db.any( CREATE_NEW_LIST, [user_id, table_name] )
   },
   getPassword: ( email ) => {

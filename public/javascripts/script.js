@@ -7,7 +7,6 @@ $(document).ready( function() {
       .attr({
         'type' : 'text',
         'class' : 'focus',
-        // 'name' : 'fname',
         'id' : 'input'+todoID,
         'size' : '24',
         'maxlength' : '24',
@@ -39,7 +38,6 @@ $(document).ready( function() {
       .attr({
         'type' : 'text',
         'class' : 'focusD',
-        // 'name' : 'fdesc',
         'id' : 'input'+todoID,
         'size' : '60',
         'value' : desc

@@ -7,7 +7,6 @@ $(document).ready( function() {
       .attr({
         'type' : 'text',
         'class' : 'focus',
-        // 'name' : 'fname',
         'id' : 'input'+todoID,
         'size' : '24',
         'maxlength' : '24',

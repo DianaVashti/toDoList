@@ -38,7 +38,6 @@ $(document).ready( function() {
       .attr({
         'type' : 'text',
         'class' : 'focusD',
-        // 'name' : 'fdesc',
         'id' : 'input'+todoID,
         'size' : '60',
         'value' : desc
